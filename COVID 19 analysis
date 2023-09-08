@@ -1,0 +1,25 @@
+select location, date, total_deaths, new_cases, total_cases , population
+from coviddeaths
+order by 1,2;
+
+select location, SUM(new_deaths) as 'deaths', SUm(new_cases) as 'cases' , 
+SUM(new_deaths)/sum(new_cases)*100 as' DeathPercentage'
+from coviddeaths
+group by location
+order by SUM(new_deaths)/sum(new_cases)*100 desc;
+
+
+select c.date, SUM(new_deaths) as 'deaths', SUm(new_cases) as 'cases',
+SUM(new_deaths)/sum(new_cases)*100 as' DeathPercentage'
+from coviddeaths c
+group by c.date
+order by year(date);
+
+
+select location, sum(new_cases) 'Cases', sum(new_deaths) 'Deaths', avg(population) 'population', 
+sum(new_cases)/avg(population)*100 as '% popluation affected',
+sum(new_deaths)/avg(population)*100 as '% population dead',
+sum(new_deaths)/sum(new_cases)*100 as 'Death %'
+ from coviddeaths
+ group by location
+ order by sum(new_cases)/avg(population)*100 desc;
