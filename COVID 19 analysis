@@ -2,7 +2,7 @@ select location, date, total_deaths, new_cases, total_cases , population
 from coviddeaths
 order by 1,2;
 
-select location, SUM(new_deaths) as 'deaths', SUm(new_cases) as 'cases' , 
+select location, SUM(new_deaths) as 'deaths', Sum(new_cases) as 'cases' , 
 SUM(new_deaths)/sum(new_cases)*100 as' DeathPercentage'
 from coviddeaths
 group by location
