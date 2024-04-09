@@ -23,3 +23,14 @@ sum(new_deaths)/sum(new_cases)*100 as 'Death %'
  from coviddeaths
  group by location
  order by sum(new_cases)/avg(population)*100 desc;
+
+
+Select a.continent, a.location, a.date, a.population, b.new_vaccinations
+, SUM(CONVERT(int,b.new_vaccinations)) OVER (Partition by a.Location Order by a.location, a.Date) as RollingPeopleVaccinated
+--, (RollingPeopleVaccinated/population)*100
+From CovidDeaths a
+Join CovidVaccinations b
+	On a.location = b.location
+	and a.date = b.date
+where a.continent is not null 
+order by 2,3
